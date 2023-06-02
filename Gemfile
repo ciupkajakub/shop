@@ -72,4 +72,5 @@ group :test do
   gem 'webdrivers'
 end
 
+gem 'devise'
 gem 'rubocop', '~> 1.51', require: false
