@@ -10,6 +10,7 @@ AllCops:
     - 'cable/*'
     - 'config.ru'
     - 'config/*'
+    - 'config/*/*'
 
 # https://www.rubydoc.info/github/bbatsov/RuboCop/RuboCop/Cop/Layout/DotPosition
 # So when reading code we know that given line has continuation
