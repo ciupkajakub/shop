@@ -108,6 +108,15 @@ services:
       - "${DOCKER_CABLE_PORT_FORWARD:-127.0.0.1:28080}:28080"
     profiles: ["cable"]
 
+  mailcatcher:
+    restart: on-failure
+    image: dockage/mailcatcher:0.8.2
+    entrypoint: []
+    ports:
+      - "1080:1080"
+      - "1025:1025"
+    profiles: ["worker"]
+
   js:
     <<: *default-assets
     command: "yarn build"
