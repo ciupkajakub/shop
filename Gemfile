@@ -73,4 +73,5 @@ group :test do
 end
 
 gem 'devise'
+gem 'devise-two-factor'
 gem 'rubocop', '~> 1.51', require: false
