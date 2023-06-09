@@ -1,12 +1,15 @@
 Rails.application.routes.draw do
-  devise_for :admins, controllers: {
-    sessions: 'admins/sessions'
+  devise_for :admins, path: 'admin', controllers: {
+    sessions: 'admin/sessions'
   }
   root to: "pages#home"
 
   get "/up/", to: "up#index", as: :up
   get "/up/databases", to: "up#databases", as: :up_databases
 
+  namespace :admin do
+    get '/all', to: 'admins#index'
+  end
   # Sidekiq has a web dashboard which you can enable below. It's turned off by
   # default because you very likely wouldn't want this to be available to
   # everyone in production.
