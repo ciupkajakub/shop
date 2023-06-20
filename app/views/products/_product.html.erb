@@ -2,8 +2,16 @@
   <p class="my-5">
     <strong class="block font-medium mb-1">Name:</strong>
     <%= product.name %>
-    <%= product.description %>
   </p>
+
+  <%= product.description %>
+  <% if product.image.content_type.in?(%W[image/jpeg image/png]) %>
+    <%= link_to image_tag(product.image_as_thumbnail), product.image if product.image.attached? %>
+  <% end %>
+
+  <% product.pictures.each do |picture| %>
+    <%= link_to image_tag(product.picture_as_thumbnail(picture)), picture %>
+  <% end %>
 
   <% if action_name != "show" %>
     <%= link_to "Show this product", product, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
