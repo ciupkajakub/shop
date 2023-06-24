@@ -1,0 +1,6 @@
+<%= turbo_frame_tag 'cart' do %>
+  <h1 class="font-bold text-4xl">Cart</h1>
+  <% if @cart.orderables.count > 0 %>
+    <%= render 'carts/orderables' %>
+  <% end %>
+<% end %>
