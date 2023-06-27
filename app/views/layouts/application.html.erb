@@ -26,6 +26,11 @@
   <p class="notice"><%= notice %></p>
   <p class="alert"><%= alert %></p>
   <%= render partial: 'carts/cart' if @render_cart %>
+  <% if user_signed_in? %>
+    <div class="fixed right-0 top-20">
+      <%= button_to 'Logout', destroy_user_session_path, method: :delete, class: "px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600" %>
+    </div>
+  <% end %>
     <div class="bg-gray-700">
       <div class="max-w-screen-lg mx-auto py-3 px-3 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between flex-wrap">
