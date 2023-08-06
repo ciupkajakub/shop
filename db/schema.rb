@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_27_122101) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_06_160210) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -69,27 +69,42 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_27_122101) do
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
   end
 
-  create_table "carts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.uuid "user_id"
-    t.index ["user_id"], name: "index_carts_on_user_id"
-  end
-
-  create_table "orderables", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "product_id", null: false
-    t.uuid "cart_id", null: false
-    t.integer "quantity"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["cart_id"], name: "index_orderables_on_cart_id"
-    t.index ["product_id"], name: "index_orderables_on_product_id"
-  end
-
   create_table "product_categories", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.uuid "product_category_id"
+    t.index ["product_category_id"], name: "index_product_categories_on_product_category_id"
+  end
+
+  create_table "product_item_configs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "product_item_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_item_id"], name: "index_product_item_configs_on_product_item_id"
+  end
+
+  create_table "product_item_configs_variants", force: :cascade do |t|
+    t.uuid "product_item_config_id"
+    t.uuid "variant_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_item_config_id"], name: "index_product_item_configs_variants_on_product_item_config_id"
+    t.index ["variant_id"], name: "index_product_item_configs_variants_on_variant_id"
+  end
+
+  create_table "product_items", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "sku"
+    t.integer "qty_in_stock"
+    t.integer "price"
+    t.boolean "is_default"
+    t.string "type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.uuid "product_item_id"
+    t.uuid "product_id"
+    t.index ["product_id"], name: "index_product_items_on_product_id"
+    t.index ["product_item_id"], name: "index_product_items_on_product_item_id"
   end
 
   create_table "products", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -100,6 +115,23 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_27_122101) do
     t.datetime "updated_at", null: false
     t.integer "price"
     t.index ["product_category_id"], name: "index_products_on_product_category_id"
+  end
+
+  create_table "shopping_cart_product_items", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.integer "quantity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.uuid "product_item_id"
+    t.uuid "shopping_cart_id"
+    t.index ["product_item_id"], name: "index_shopping_cart_product_items_on_product_item_id"
+    t.index ["shopping_cart_id"], name: "index_shopping_cart_product_items_on_shopping_cart_id"
+  end
+
+  create_table "shopping_carts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.uuid "user_id"
+    t.index ["user_id"], name: "index_shopping_carts_on_user_id"
   end
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -118,10 +150,20 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_27_122101) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "variants", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name"
+    t.string "value"
+    t.string "type"
+    t.uuid "product_category_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_category_id"], name: "index_variants_on_product_category_id"
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "carts", "users"
-  add_foreign_key "orderables", "carts"
-  add_foreign_key "orderables", "products"
+  add_foreign_key "product_item_configs", "product_items"
   add_foreign_key "products", "product_categories"
+  add_foreign_key "shopping_carts", "users"
+  add_foreign_key "variants", "product_categories"
 end
