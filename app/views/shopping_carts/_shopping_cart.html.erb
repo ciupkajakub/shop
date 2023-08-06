@@ -1,0 +1,6 @@
+<%= turbo_frame_tag 'shopping_cart' do %>
+  <h1 class="font-bold text-4xl">Cart</h1>
+  <% if @shopping_cart.shopping_cart_items.count > 0 %>
+    <%= render 'shopping_carts/shopping_cart_items' %>
+  <% end %>
+<% end %>

@@ -9,9 +9,9 @@ Rails.application.routes.draw do
 
   get "/up/", to: "up#index", as: :up
   get "/up/databases", to: "up#databases", as: :up_databases
-  get 'cart', to: 'carts#show'
-  post 'carts/add'
-  post 'carts/remove'
+  get 'shopping_cart', to: 'shopping_carts#show'
+  post 'shopping_carts/add'
+  post 'shopping_carts/remove'
 
   namespace :admin do
     get '/all', to: 'admins#index'

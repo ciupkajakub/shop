@@ -3,10 +3,10 @@ class ApplicationController < ActionController::Base
   before_action :initialize_cart
 
   def set_render_cart
-    @render_cart = true
+    @render_shopping_cart = true
   end
 
   def initialize_cart
-    @cart ||= Cart.find_by(id: session[:cart_id])
+    @shopping_cart ||= ShoppingCart.find_by(id: session[:cart_id])
   end
 end

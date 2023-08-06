@@ -12,27 +12,27 @@
           </tr>
           </thead>
           <tbody>
-          <% @cart.orderables.each do |orderable| %>
-            <% product = orderable.product %>
-            <div id="<%= "cart-#{product.id}" %>">
+          <% @shopping_cart.shopping_cart_items.each do |shopping_cart_item| %>
+            <% product = shopping_cart_item.product %>
+            <div id="<%= "shopping_cart-#{product.id}" %>">
               <tr>
                 <td class="whitespace-nowrap px-6 py-4"><%= product.name %></td>
-                <%= form_with(url: carts_add_path) do |f| %>
+                <%= form_with(url: shopping_carts_add_path) do |f| %>
                   <%= f.hidden_field :id, value: product.id %>
-                  <td class="whitespace-nowrap px-6 py-4"><%= f.number_field :quantity, value: orderable.quantity, min: 0 %></td>
+                  <td class="whitespace-nowrap px-6 py-4"><%= f.number_field :quantity, value: shopping_cart_item.quantity, min: 0 %></td>
                   <td class="whitespace-nowrap px-6 py-4"><%= product.price %></td>
-                  <td class="whitespace-nowrap px-6 py-4"><%= orderable.total %></td>
+                  <td class="whitespace-nowrap px-6 py-4"><%= shopping_cart_item.total %></td>
                   <td class="whitespace-nowrap px-6 py-4">
                     <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                       <%= f.submit "Update amount" %>
                     </button>
                   </td>
                 <% end %>
-                <%= form_with(url: carts_remove_path) do |f| %>
-                  <%= f.hidden_field :id, value: orderable.id %>
+                <%= form_with(url: shopping_carts_remove_path) do |f| %>
+                  <%= f.hidden_field :id, value: shopping_cart_item.id %>
                   <td class="whitespace-nowrap px-6 py-4">
                     <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
-                      <%= f.submit "Remove from cart" %>
+                      <%= f.submit "Remove from shopping_cart" %>
                     </button>
                   </td>
                 <% end %>

@@ -1,0 +1,1 @@
+class ColorVariant < Variant; end
