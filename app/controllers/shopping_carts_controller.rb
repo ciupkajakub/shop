@@ -10,7 +10,7 @@ class ShoppingCartsController < ApplicationController
     quantity = params[:quantity].to_i
     current_shopping_cart_item = cart.shopping_cart_items.find_by(product_id: @product.id)
 
-    if current_shopping_cart_item && quantity > 0
+    if current_shopping_cart_item && quantity.positive?
       current_shopping_cart_item.update(quantity:)
     elsif quantity <= 0
       current_shopping_cart_item.destroy

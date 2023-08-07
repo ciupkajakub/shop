@@ -7,6 +7,6 @@ class ApplicationController < ActionController::Base
   end
 
   def initialize_cart
-    @shopping_cart ||= ShoppingCart.find_by(id: session[:cart_id])
+    @initialize_cart ||= ShoppingCart.find_by(id: session[:cart_id])
   end
 end
