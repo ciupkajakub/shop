@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_07_132233) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_07_133140) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -119,11 +119,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_07_132233) do
   create_table "products", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
     t.text "description"
-    t.uuid "product_category_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "price"
-    t.index ["product_category_id"], name: "index_products_on_product_category_id"
   end
 
   create_table "shopping_cart_product_items", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -172,7 +170,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_07_132233) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "product_item_configs", "product_items"
-  add_foreign_key "products", "product_categories"
   add_foreign_key "shopping_carts", "users"
   add_foreign_key "variants", "product_categories"
 end
