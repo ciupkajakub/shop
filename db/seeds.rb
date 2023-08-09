@@ -17,7 +17,7 @@ _admin = Admin.create(
 clothing_category = ProductCategory.create(name: 'CLOTHING')
 men_product_category = ProductCategory.create(name: 'MEN', product_category_id: clothing_category.id)
 hoodie_category = ProductCategory.create(name: 'HOODIES', product_category_id: men_product_category.id)
-product = Product.create(name: 'Hoodie v100', description: '100% cotton', product_category_id: hoodie_category.id)
+product = Product.create(name: 'Hoodie v100', description: '100% cotton')
 product_item = ProductItem.create(
   sku: 'random_string',
   qty_in_stock: 10,
