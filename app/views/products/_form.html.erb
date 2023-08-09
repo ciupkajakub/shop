@@ -21,25 +21,30 @@
     <%= form.rich_text_area :description, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
-  <div class="my-5">
-    <%= form.label :price %>
-    <%= form.number_field :price, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
+<!--  <div class="my-5">-->
+    <%#= form.label :price %>
+    <%#= form.number_field :price, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+<!--  </div>-->
 
   <div class="my-5">
-    <%= form.label :category %>
-    <%= form.collection_select :product_category_id, @categories, :id, :name, prompt: 'Select a category', class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  <%= form.label :categories %>
+  <% @categories.each do |category| %>
+    <div>
+      <%= check_box_tag 'product[product_category_ids][]', category.id, product.product_categories.include?(category) %>
+      <%= category.name %>
+    </div>
+  <% end %>
   </div>
 
-  <div class="my-5">
-    <%= form.label :image %>
-    <%= form.file_field :image, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
+<!--  <div class="my-5">-->
+    <%#= form.label :image %>
+    <%#= form.file_field :image, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+<!--  </div>-->
 
-  <div class="my-5">
-    <%= form.label :pictures %>
-    <%= form.file_field :pictures, multiple: true, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
+<!--  <div class="my-5">-->
+    <%#= form.label :pictures %>
+    <%#= form.file_field :pictures, multiple: true, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+<!--  </div>-->
 
   <div class="inline">
     <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>

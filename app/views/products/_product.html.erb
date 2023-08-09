@@ -2,19 +2,21 @@
   <div>
     <strong class="block font-medium mb-1">Name:</strong>
     <%= product.name %>
-    <strong class="block font-medium mb-1">Category:</strong>
-    <%= product.product_category.name %>
+    <strong class="block font-medium mb-1">Categories:</strong>
+    <% product.product_categories.each do |pc| %>
+      <li><%= pc.name %></li>
+    <% end %>
     <strong class="block font-medium mb-1">Description:</strong>
     <%= product.description %>
-    <strong class="block font-medium mb-1">Price:</strong>
-    <%= product.price %>
+    <!--    <strong class="block font-medium mb-1">Price:</strong>-->
+    <%#= product.price %>
   </div>
   <%# if product.image.content_type.in?(%W[image/jpeg image/png]) %>
-    <%#= link_to image_tag(product.image_as_thumbnail), product.image if product.image.attached? %>
+  <%#= link_to image_tag(product.image_as_thumbnail), product.image if product.image.attached? %>
   <%# end %>
 
   <%# product.pictures.each do |picture| %>
-    <%#= link_to image_tag(product.picture_as_thumbnail(picture)), picture %>
+  <%#= link_to image_tag(product.picture_as_thumbnail(picture)), picture %>
   <%# end %>
 
   <% if action_name != "show" %>
@@ -22,11 +24,11 @@
     <%= link_to 'Edit this product', edit_product_path(product), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
     <%= link_to 'Delete Product', product_path(product), method: :delete, data: { confirm: 'Are you sure?' }, class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
 
-    <%= form_with(url: shopping_carts_add_path) do |f| %>
-      <%= f.hidden_field :id, value: product.id %>
-      <%= f.number_field :quantity, value: 0, min: 1 %>
-      <%= f.submit 'Add to card' %>
-    <% end %>
+    <%#= form_with(url: shopping_carts_add_path) do |f| %>
+      <%#= f.hidden_field :id, value: product.id %>
+      <%#= f.number_field :quantity, value: 0, min: 1 %>
+      <%#= f.submit 'Add to card' %>
+    <%# end %>
     <hr class="mt-6">
   <% end %>
 </div>
